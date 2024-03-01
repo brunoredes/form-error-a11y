@@ -1,0 +1,55 @@
+<form [formGroup]="contatoForm" (ngSubmit)="submitForm()" class="contato-form">
+  <div class="contato-form__field">
+    <label for="nome">Digite seu nome</label>
+    <input type="text" id="nome" name="nome" formControlName="nome" />
+  </div>
+  <div class="contato-form__field">
+    <label for="email">Digite seu email</label>
+    <input
+      type="email"
+      formControlName="email"
+      required
+      aria-required="true"
+      aria-errormessage="emailInvalido"
+      placeholder="exemplo@mail.com"
+      aria-placeholder="exemplo de entrada: meuemail@mail.com"
+      id="email"
+      name="email"
+    />
+    @if (contatoForm.controls.email.errors && contatoForm.touched &&
+    contatoForm.dirty) {
+    <span id="emailInvalido" aria-live="assertive" role="alert"
+      >Email inválido</span
+    >
+    }
+  </div>
+  <div class="contato-form__field">
+    <label for="assunto">Digite o assunto</label>
+    <input type="text" formControlName="assunto" id="assunto" />
+  </div>
+  <div class="contato-form__field">
+    <div>
+      <label for="mensagem">Digite sua mensagem</label>
+      <textarea
+        rows="5"
+        cols="21"
+        formControlName="mensagem"
+        #textarea
+        maxlength="300"
+        id="mensagem"
+        name="mensagem"
+      >
+      </textarea>
+    </div>
+    <span aria-details="">{{ textarea.value.length }} / 300</span>
+  </div>
+  <button
+    type="button"
+    class="contato-form__button"
+    [ngClass]="{ 'contato-form__button--disabled': contatoForm.invalid }"
+    [attr.disabled]="contatoForm.invalid"
+    [attr.aria-disabled]="contatoForm.invalid"
+  >
+    Nos envie uma mensagem
+  </button>
+</form>
